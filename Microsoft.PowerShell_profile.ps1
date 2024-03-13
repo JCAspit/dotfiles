@@ -1,26 +1,18 @@
 oh-my-posh init pwsh --config 'C:\Users\J\AppData\Local\Programs\oh-my-posh\themes\jblab_2021.omp.json' | Invoke-Expression
 
-function dirs
-{
-	if ($args.Count -gt 0)
-	{
+function dirs {
+	if ($args.Count -gt 0) {
 		Get-ChildItem -Recurse -Include "$args" | Foreach-Object FullName
-	}
-	else
-	{
+	}else {
 		Get-ChildItem -Recurse | Foreach-Object FullName
 	}
 }
 
-function admin
-{
-	if ($args.Count -gt 0)
-	{
+function admin {
+	if ($args.Count -gt 0) {
 		$argList = "& '" + $args + "'"
 		Start-Process "$psHome\powershell.exe" -Verb runAs -ArgumentList $argList
-	}
-	else
-	{
+	}else {
 		Start-Process "$psHome\powershell.exe" -Verb runAs
 	}
 }
@@ -47,9 +39,7 @@ function unzip($file) {
 	echo("Extracting", $file, "to", $pwd)
 	$fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object{$_.FullName}
 	Expand-Archive -Path $fullFile -DestinationPath $pwd
-	}
-	else
-	{
+	}else {
 		echo("Please provide a file.")
 	}
 }
