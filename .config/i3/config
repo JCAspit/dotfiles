@@ -191,15 +191,14 @@ bar {
         status_command i3blocks -c ~/.config/i3/i3blocks.conf
 }
 
-# ADDED BY ME LOL
 # Keybinds
 bindsym $mod+shift+x exec i3lock --color "#385b7f"
 bindsym $mod+shift+b exec --no-startup-id feh ~/Pictures/Wallpapers/* --recursive --randomize --bg-scale
 
 # Startup
 exec_always --no-startup-id feh ~/Pictures/Wallpapers/* --recursive --randomize --bg-scale
-exec_always xrandr --output Virtual1 --mode 1920x1080
-exec --no-startup-id picom -CGb
+exec_always xrandr --output Virtual-1 --mode 1920x1080
+exec --no-startup-id picom -Cb
 exec firefox
 
 # Pulse Audio controls
@@ -212,5 +211,25 @@ bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-# END OF ADDED BY ME LOL
 
+# Move Floating Window
+bindsym $mod+m mdoe "move" focus floating
+mode "move" {
+    bindsym $mod+Tab focus right
+
+    # Arrow Keys
+    bindsym Left	move left
+    bindsym Right	move right
+    bindsym Up		move up
+    bindsym Down	move down
+
+    # Vim Keybinds
+    bindsym h		move left
+    bindsym j		move down
+    bindsym k		move up
+    bindsym l		move right
+
+    # Exit Mode Keybinds
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
