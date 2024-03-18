@@ -59,10 +59,10 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -71,10 +71,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -83,7 +83,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+z split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -149,11 +149,12 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
-assign[class="Gnome-terminal"] $ws1
+assign[class="konsole"] $ws1
 assign[class="firefox"] $ws2
 assign[class="Spotify"] $ws3
 assign[class="discord"] $ws4
-assign[class="steam"] $ws5
+assign[class="obsidian"] $ws6
+assign[class="steam"] $ws6
 assign[class="Gimp"] $ws7
 
 # move focused container to workspace
@@ -208,16 +209,53 @@ bar {
         status_command i3blocks -c ~/.config/i3/i3blocks.conf
 }
 
+##################$
+# Custom Settings #
+###################
+
+# Move Floating Window
+mode "move" {
+    bindsym $mod+Tab focus right
+
+    # Arrow Keys
+    bindsym Left			move left
+    bindsym Right			move right
+    bindsym Up				move up
+    bindsym Down			move down
+
+    bindsym $Shift+Left		move left 50
+    bindsym $Shift+Right	move right 50
+    bindsym $Shift+Up		move up 50
+    bindsym $Shift+Down		move down 50
+
+    # Vim Keybinds
+    bindsym h				move left
+    bindsym j				move down
+    bindsym k				move up
+    bindsym l				move right
+
+    bindsym $Shift+h		move left 50
+    bindsym $Shift+j		move down 50
+    bindsym $Shift+k		move up 50
+    bindsym $Shift+l		move right 50
+
+    # Exit Mode Keybinds
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+m mode "move" focus floating
+
+# Startup
+exec_always xrandr --output Virtual-1 --primary --mode 1920x1080
+exec_always --no-startup-id feh ~/Pictures/Wallpapers/* --recursive --randomize --bg-scale
+exec --no-startup-id picom -b #-CGB
+exec pulseaudio --start
+exec firefox
+
 # Keybinds
 bindsym $mod+shift+x exec i3lock --color "#385b7f"
 bindsym $mod+shift+b exec --no-startup-id feh ~/Pictures/Wallpapers/* --recursive --randomize --bg-scale
-
-# Startup
-exec_always --no-startup-id feh ~/Pictures/Wallpapers/* --recursive --randomize --bg-scale
-exec_always xrandr --output Virtual-1 --mode 1920x1080
-exec --no-startup-id picom -Cb
-exec firefox
-exec pulseaudio --start
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -230,27 +268,14 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# Window Properties
-#hide_edge_borders both
+# Window Border Properties
+hide_edge_borders none
+default_border pixel 1
+default_floating_border pixel 1
 
-# Move Floating Window
-bindsym $mod+m mdoe "move" focus floating
-mode "move" {
-    bindsym $mod+Tab focus right
+focus_follows_mouse no
+workspace_auto_back_and_forth yes
 
-    # Arrow Keys
-    bindsym Left	move left
-    bindsym Right	move right
-    bindsym Up		move up
-    bindsym Down	move down
-
-    # Vim Keybinds
-    bindsym h		move left
-    bindsym j		move down
-    bindsym k		move up
-    bindsym l		move right
-
-    # Exit Mode Keybinds
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+gaps inner 2px
+gaps outer 5px
+smart_gaps on
