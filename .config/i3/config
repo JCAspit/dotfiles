@@ -153,11 +153,12 @@ assign[class="konsole"] $ws1
 assign[class="firefox"] $ws2
 assign[class="Spotify"] $ws3
 assign[class="discord"] $ws4
-assign[class="obsidian"] $ws6
+assign[class="obsidian"] $ws5
 assign[class="steam"] $ws6
 assign[class="Gimp"] $ws7
 
 # move focused container to workspace
+
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
@@ -247,7 +248,9 @@ mode "move" {
 bindsym $mod+m mode "move" focus floating
 
 # Startup
-exec_always xrandr --output Virtual-1 --primary --mode 1920x1080
+# exec_always xrandr --output Virtual-1 --primary --mode 1920x1080
+exec_always xrandr --output VGA-1 --primary --mode 1920x1080 --rate 165 --left-of VGA-2
+exec_always xrandr --output VGA-2 --auto --rate 165 --pos 1920x1080
 exec_always --no-startup-id feh ~/Pictures/Wallpapers/* --recursive --randomize --bg-scale
 exec --no-startup-id picom -b #-CGB
 exec pulseaudio --start
@@ -256,6 +259,8 @@ exec firefox
 # Keybinds
 bindsym $mod+shift+x exec i3lock --color "#385b7f"
 bindsym $mod+shift+b exec --no-startup-id feh ~/Pictures/Wallpapers/* --recursive --randomize --bg-scale
+bindsym $mod+Ctrl+greater move workspace to output right
+bindsym $mod+Ctrl+less move workspace to output left
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
