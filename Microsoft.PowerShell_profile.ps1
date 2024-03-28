@@ -19,7 +19,8 @@ function admin {
 
 Set-Alias -Name su -Value admin
 Set-Alias -Name sudo -Value admin
-# Set-Alias -Name vim -Value nvim
+Set-Alias -Name vim -Value nvim
+Set-Alias -Name ll -Value 'ls -force'
 
 function Get-Uptime {
 	Get-WmiObject win32_operatingsystem | select csname, @{LABEL='LastBootUpTime';
