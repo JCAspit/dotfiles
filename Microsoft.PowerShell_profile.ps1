@@ -1,66 +1,53 @@
+# Updated function from https://github.com/ChrisTitusTech/powershell-profile/blob/main/Microsoft.PowerShell_profile.ps1
+function Update-PowerShell {
+    if (-not (Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds 1)) {
+        Write-Host "Skipping PowerShell update check due to GitHub.com not responding within 1 second." -ForegroundColor Yellow
+        return
+    }
+
+    try {
+        Write-Host "Checking for PowerShell updates..." -ForegroundColor Cyan
+        $updateNeeded = $false
+        $currentVersion = $PSVersionTable.PSVersion.ToString()
+        $gitHubApiUrl = "https://api.github.com/repos/PowerShell/PowerShell/releases/latest"
+        $latestReleaseInfo = Invoke-RestMethod -Uri $gitHubApiUrl
+        $latestVersion = $latestReleaseInfo.tag_name.Trim('v')
+        if ($currentVersion -lt $latestVersion) {
+            $updateNeeded = $true
+        }
+
+        if ($updateNeeded) {
+            Write-Host "Updating PowerShell..." -ForegroundColor Yellow
+            winget upgrade "Microsoft.PowerShell" --accept-source-agreements --accept-package-agreements
+            Write-Host "PowerShell has been updated. Please restart your shell to reflect changes" -ForegroundColor Magenta
+        } else {
+            Write-Host "Your PowerShell is up to date." -ForegroundColor Green
+        }
+    } catch {
+        Write-Error "Failed to update PowerShell. Error: $_"
+    }
+}
+Update-PowerShell
+
+# ┌—————————┐
+# │ ALIASES │
+# └—————————┘
+Set-Alias -Name vim -Value nvim
+Set-Alias -Name re -Value reload
+function notes { nvim C:/Users/J/Documents/notepad.txt }
+function ll { ls -Force }
+function ff { fastfetch -c C:/Users/J/Documents/.ff-config.jsonc -l C:/Users/J/Documents/icon.txt }
+function shutdown { Stop-Computer -ComputerName localhost -Force }
+function reboot { Stop-Computer /r -ComputerName localhost -Force }
+function touch($file) { "" | Out-File $file -Encoding ASCII }
+function uptime { (Get-CimInstance Win32_OperatingSystem -ComputerName $_.Name).LastBootUpTime }
+function reload { . $PROFILE }
+function htop { while(1) { ps | sort -des cpu | select -f 15 | ft -a; sleep 1; cls } }
+
+# ┌————————┐
+# │ PROMPT │
+# └————————┘
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
 oh-my-posh init pwsh --config 'C:\Users\J\AppData\Local\Programs\oh-my-posh\themes\jblab_2021.omp.json' | Invoke-Expression
 
-function dirs {
-	if ($args.Count -gt 0) {
-		Get-ChildItem -Recurse -Include "$args" | Foreach-Object FullName
-	}else {
-		Get-ChildItem -Recurse | Foreach-Object FullName
-	}
-}
-
-function admin {
-	if ($args.Count -gt 0) {
-		$argList = "& '" + $args + "'"
-		Start-Process "$psHome\powershell.exe" -Verb runAs -ArgumentList $argList
-	}else {
-		Start-Process "$psHome\powershell.exe" -Verb runAs
-	}
-}
-
-Set-Alias -Name su -Value admin
-Set-Alias -Name sudo -Value admin
-Set-Alias -Name vim -Value nvim
-Set-Alias -Name ll -Value 'ls -force'
-
-function Get-Uptime {
-	Get-WmiObject win32_operatingsystem | select csname, @{LABEL='LastBootUpTime';
-	EXPRESSION={$_.ConverttoDateTime($_.lastbootuptime)}}
-}
-
-function Find-File($name) {
-	ls -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | foreach {
-		$place_path = $_.directory
-		echo "${place_path}\${_}"
-	}
-}
-
-# Todo: check if file is valid path
-function unzip($file) {
-	if ($file -ne $null) {
-	echo("Extracting", $file, "to", $pwd)
-	$fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object{$_.FullName}
-	Expand-Archive -Path $fullFile -DestinationPath $pwd
-	}else {
-		echo("Please provide a file.")
-	}
-}
-
-function grep($regex, $dir) {
-	if ( $dir ) {
-		ls $dir | Select-String $regex
-		return
-	}
-	$input | Select-String $regex
-}
-
-function touch($file) {
-	"" | Out-File $file -Encoding ASCII
-}
-
-function pkill($name) {
-	ps $name -ErrorAction SilentlyContinue | kill
-}
-
-function pgrep($name) {
-	ps $name
-}
+#ff
