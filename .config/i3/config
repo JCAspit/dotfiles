@@ -267,7 +267,7 @@ exec udiskie -a
 exec_always --no-startup-id feh /media/Storage/Pictures/bg/* --recursive --randomize --bg-center --bg-scale
 
 # Custom Keybinds
-bindsym $mod+Shift+x exec /opt.scripts/lock-2.sh
+bindsym $mod+Shift+x exec /opt/scripts/lock-2.sh
 bindsym $mod+Shift+b exec --no-startup-id feh /media/Storage/Pictures/bg/* --recursive --randomize --bg-center --bg-scale
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
 bindsym $mod+Shift+y exec --no-startup-id kitty -e python /opt/scripts/youtube_downloader_v4.py
