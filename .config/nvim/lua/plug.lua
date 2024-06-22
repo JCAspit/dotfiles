@@ -12,7 +12,7 @@ Plug("nordtheme/vim")
 --Plug("ellisonleao/gruvbox.nvim")
 
 Plug ('nvim-lua/plenary.nvim')
-Plug ('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.6' })
+Plug ('nvim-telescope/telescope.nvim'--[[, { ['tag'] = '0.1.6' }]])
 
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug("nvim-treesitter/playground")
@@ -32,6 +32,8 @@ Plug('ahmedkhalf/project.nvim')
 --Plug('folke/which-key.nvim')
 --Plug('xiyaowong/transparent.nvim')
 --Plug('epwalsh/obsidian.nvim')
+Plug('3rd/image.nvim')
+Plug('Fymyte/rasi.vim') -- DEPRECATED, MERGED INTO NVIM, UNINSTALL AFTER NEXT NVIM UPDATE
 
 -- Silly lil colored statusline
 Plug('nvim-lualine/lualine.nvim')
@@ -61,8 +63,9 @@ Plug("nvim-neo-tree/neo-tree.nvim", {
 
 -- LaTeX
 Plug('lervag/vimtex')
-Plug('sirver/ultisnips') -- why is it erroring? try pip install pynvim!
-Plug('KeitaNakamura/tex-conceal.vim')
+--Plug('KeitaNakamura/tex-conceal.vim')
+Plug('dylanaraps/pywal')
+--Plug('sirver/ultisnips') -- why is it erroring? try pip install pynvim!
 
 vim.call('plug#end')
 
