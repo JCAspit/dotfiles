@@ -17,6 +17,15 @@ alias yt='ytfzf'
 alias lob='lobster'
 alias ani='ani-cli'
 alias cfg='git --git-dir $HOME/.cfg --work-tree=$HOME'
+alias sudo='sudo '
+alias restore='trash-restore --sort date'
+
+alias i3='vim ~/.config/i3/config'
+alias doc='vim ~/Documents/txt.txt'
+alias bashrc='vim ~/.bashrc'
+alias todo='vim ~/Documents/todo.txt'
+alias notes='vim /media/Storage/Documents/Papers-2023-2024/notepad.txt'
+alias vp='vim /media/Storage/Documents/Papers-2023-2024/vp.txt'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -29,3 +38,4 @@ alias ffff='fortune | cowsay -f dragon -W 30 > ~/Documents/dragon.txt && fastfet
 eval "$(zoxide init bash)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 export PATH="$PATH:/home/jackie/.local/bin"
+export EDITOR=nvim
