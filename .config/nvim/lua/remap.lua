@@ -2,6 +2,7 @@ local vim = vim
 
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pe", vim.cmd.Sex)
 
 vim.keymap.set("n", "<leader>y", "\"+y")
 vim.keymap.set("v", "<leader>y", "\"+y")
@@ -29,3 +30,6 @@ vim.keymap.set({ 'n', 'i', 'c', 'v' }, "<Up>", "<NOP>")
 vim.keymap.set({ 'n', 'i', 'c', 'v' }, "<Down>", "<NOP>")
 vim.keymap.set({ 'n', 'i', 'c', 'v' }, "<Left>", "<NOP>")
 vim.keymap.set({ 'n', 'i', 'c', 'v' }, "<Right>", "<NOP>")
+
+vim.keymap.set("c", "<C-j>", "<Down>")
+vim.keymap.set("c", "<C-k>", "<Up>")

@@ -1,3 +1,22 @@
-[hidenotification]
-appname=Spotify
-skip_display=true
+[change-format]
+	appname = dunstify
+	format = "<b>%s</b>\n<i>%b</i>"
+
+#[global]
+#	mouse_left_click = "close_current"
+#    mouse_middle_click = "do_action, close_current"
+#	mouse_right_clock = "close_all"
+
+#[all_notifications] # A rule that matches all notifications
+#    # action_name = "no"
+#	always_run_script = true
+
+[hide-notification]
+	appname=Spotify
+	skip_display=true
+
+[spotify-notification]
+	appname="notify-send"
+	background="#222222"
+	foreground="#ffffff"
+	frame_color="#888888"

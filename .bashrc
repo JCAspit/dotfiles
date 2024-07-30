@@ -10,6 +10,7 @@ alias rm='trash-put'
 alias cp='cp -i'
 alias mv='mv -i'
 
+alias c='code'
 alias vi='nvim'
 alias vim='nvim'
 alias cat='bat'
@@ -19,13 +20,16 @@ alias ani='ani-cli'
 alias cfg='git --git-dir $HOME/.cfg --work-tree=$HOME'
 alias sudo='sudo '
 alias restore='trash-restore --sort date'
+function cmkdir () { mkdir -p "$1" && cd "$1"; }
 
-alias i3='vim ~/.config/i3/config'
-alias doc='vim ~/Documents/txt.txt'
-alias bashrc='vim ~/.bashrc'
-alias todo='vim ~/Documents/todo.txt'
-alias notes='vim /media/Storage/Documents/Papers-2023-2024/notepad.txt'
-alias vp='vim /media/Storage/Documents/Papers-2023-2024/vp.txt'
+alias v='nvim .'
+alias c='code .'
+alias i3='nvim ~/.config/i3/config'
+alias doc='nvim ~/Documents/txt.txt'
+alias bashrc='nvim ~/.bashrc'
+alias todo='nvim ~/Documents/todo.txt'
+alias notes='nvim /media/Storage/Documents/Papers-2023-2024/notepad.txt'
+alias vp='nvim /media/Storage/Documents/Papers-2023-2024/vp.txt'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -38,4 +42,6 @@ alias ffff='fortune | cowsay -f dragon -W 30 > ~/Documents/dragon.txt && fastfet
 eval "$(zoxide init bash)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 export PATH="$PATH:/home/jackie/.local/bin"
+export PATH="$PATH:/home/jackie/npm-global/bin"
 export EDITOR=nvim
+export PYTHONPATH="/usr/lib/python3.12/site-packages"
