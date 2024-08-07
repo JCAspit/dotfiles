@@ -20,6 +20,7 @@ alias ani='ani-cli'
 alias cfg='git --git-dir $HOME/.cfg --work-tree=$HOME'
 alias sudo='sudo '
 alias restore='trash-restore --sort date'
+alias zath='zathura'
 function cmkdir () { mkdir -p "$1" && cd "$1"; }
 
 alias v='nvim .'
@@ -30,6 +31,7 @@ alias bashrc='nvim ~/.bashrc'
 alias todo='nvim ~/Documents/todo.txt'
 alias notes='nvim /media/Storage/Documents/Papers-2023-2024/notepad.txt'
 alias vp='nvim /media/Storage/Documents/Papers-2023-2024/vp.txt'
+alias vencord='sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -43,5 +45,7 @@ eval "$(zoxide init bash)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 export PATH="$PATH:/home/jackie/.local/bin"
 export PATH="$PATH:/home/jackie/npm-global/bin"
+# Adding usc to dmenu
+export PATH="$PATH:/home/jackie/Documents/unnamed-sdvx-clone/bin/usc-game"
 export EDITOR=nvim
 export PYTHONPATH="/usr/lib/python3.12/site-packages"

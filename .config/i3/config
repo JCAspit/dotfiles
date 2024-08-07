@@ -248,12 +248,14 @@ exec_always xrandr --output DP-4 --mode 1920x1080 --rate 165.00 --right-of DP-2
 exec --no-startup-id feh /media/Storage/Pictures/bg/* --recursive --randomize --bg-center --bg-scale
 exec --no-startup-id picom -b --vsync --no-frame-pacing --backend=glx
 exec --no-startup-id udiskie -a
+exec firefox
 
 # Custom Keybinds
 bindsym $mod+Shift+x exec /opt/scripts/lock-2.sh
 bindsym $mod+Shift+b exec --no-startup-id feh /media/Storage/Pictures/bg/* --recursive --randomize --bg-center --bg-scale
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
 bindsym $mod+Shift+y exec --no-startup-id kitty -e python /opt/scripts/youtube_downloader_v4.py
+bindsym $mod+Ctrl+space exec /opt/scripts/swap_kbd.sh
 
 bindsym $mod+q workspace back_and_forth
 
