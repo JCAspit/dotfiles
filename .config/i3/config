@@ -35,17 +35,23 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 #exec --no-startup-id nm-applet
 
 # Audio controls
-set $volumeChange 2
-bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume $volumeChange --max-volume 100 && pulsemixer --unmute && /opt/scripts/volume.sh && /opt/scripts/spotify-song.sh
-bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -$volumeChange --max-volume 100 && pulsemixer --unmute && /opt/scripts/volume.sh && /opt/scripts/spotify-song.sh
-bindsym XF86AudioMute exec --no-startup-id pulsemixer --toggle-mute && /opt/scripts/volume.sh mute
+# Pipewire
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && /opt/scripts/volume.sh && pactl set-sink-mute @DEFAULT_SINK@ 0
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && /opt/scripts/volume.sh && pactl set-sink-mute @DEFAULT_SINK@ 0
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && /opt/scripts/volume.sh
+
+# Pulse
+#set $volumeChange 2
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume $volumeChange --max-volume 100 && pulsemixer --unmute && /opt/scripts/volume-pulse.sh && /opt/scripts/spotify-song.sh
+#bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -$volumeChange --max-volume 100 && pulsemixer --unmute && /opt/scripts/volume-pulse.sh && /opt/scripts/spotify-song.sh
+#bindsym XF86AudioMute exec --no-startup-id pulsemixer --toggle-mute && /opt/scripts/volume-pulse.sh mute
 
 # Media player controls
 bindsym XF86AudioNext exec --no-startup-id playerctl next && /opt/scripts/spotify-song.sh
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous && /opt/scripts/spotify-song.sh
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause && /opt/scripts/spotify-song.sh
-#bindsym XF86AudioStop exec --no-startup-id playerctl pause
-bindsym XF86AudioStop exec /opt/scripts/spotify-song.sh
+bindsym XF86AudioStop exec --no-startup-id playerctl pause
+#bindsym XF86AudioStop exec /opt/scripts/spotify-song.sh
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -55,7 +61,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -143,6 +149,11 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
+bindsym $mod+q workspace back_and_forth
+bindsym $mod+c workspace $ws7
+bindsym $mod+x workspace $ws8
+bindsym $mod+g workspace $ws9
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
@@ -163,6 +174,8 @@ workspace 4 output DP-2
 workspace 5 output DP-2
 workspace 6 output DP-4
 workspace 7 output DP-2
+workspace 8 output DP-2
+workspace 9 output DP-4
 
 # Window assignments
 assign [class="kitty"] $ws1
@@ -173,14 +186,11 @@ assign [class="mpv|vlc"] $ws4
 assign [class="steam"] $ws5
 assign [class="discord"] $ws6
 assign [class="obsidian"] $ws6
-assign [class="Gimp"] $ws7
+assign [class="jetbrains-idea-ce"] $ws7
+assign [class="Gimp"] $ws8
+assign [class="(?i)zoom"] $ws9
 
 for_window [class="mpv|vlc"] focus
-
-# keybinds for really far numbers
-#bindsym $mod+Ctrl+a workspace 5
-#bindsym $mod+Ctrl+s workspace 6
-#bindsym $mod+Ctrl+d workspace 7
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -217,6 +227,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# move the window
 mode "move" {
 		bindsym $mod+Tab focus right
 
@@ -233,31 +244,29 @@ mode "move" {
 
 bindsym $mod+m mode "move" focus floating
 
+# Other Customizations
 focus_follows_mouse no
-focus_wrapping no
-mouse_warping output
 workspace_auto_back_and_forth yes
-tiling_drag modifier
 
-default_border pixel 1
-default_floating_border pixel 1
+default_border pixel 2
+default_floating_border pixel 2
 
 # Startup
-exec_always xrandr --output DP-2 --primary --mode 1920x1080 --rate 144
-exec_always xrandr --output DP-4 --mode 1920x1080 --rate 165.00 --right-of DP-2
-exec --no-startup-id feh /media/Storage/Pictures/bg/* --recursive --randomize --bg-center --bg-scale
+# exec_away because the refresh rate doesn't seem to load sometimes
+# i'm too lazy to type the command or an alias
+exec_always --no-startup-id xrandr --output DP-2 --primary --mode 1920x1080 --rate 144
+exec_always --no-startup-id xrandr --output DP-4 --mode 1920x1080 --rate 165.00 --right-of DP-2
 exec --no-startup-id picom -b --vsync --no-frame-pacing --backend=glx
+exec --no-startup-id feh /media/Storage/Pictures/bg/* --recursive --randomize --bg-center --bg-fill
 exec --no-startup-id udiskie -a
 exec firefox
 
 # Custom Keybinds
 bindsym $mod+Shift+x exec /opt/scripts/lock-2.sh
-bindsym $mod+Shift+b exec --no-startup-id feh /media/Storage/Pictures/bg/* --recursive --randomize --bg-center --bg-scale
+bindsym $mod+Shift+b exec --no-startup-id feh /media/Storage/Pictures/bg/* --recursive --randomize --bg-center --bg-fill
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
-bindsym $mod+Shift+y exec --no-startup-id kitty -e python /opt/scripts/youtube_downloader_v4.py
-bindsym $mod+Ctrl+space exec /opt/scripts/swap_kbd.sh
-
-bindsym $mod+q workspace back_and_forth
+bindsym $mod+Ctrl+space exec --no-startup-id /opt/scripts/swap_kbd.sh
+bindsym $mod+Shift+y exec i3-sensible-terminal -e python /opt/scripts/youtube_downloader_v4.py
 
 bindsym $mod+Ctrl+greater move workspace to output left
 bindsym $mod+Ctrl+less move workspace to output right
@@ -265,10 +274,7 @@ bindsym $mod+Ctrl+less move workspace to output right
 bindsym $mod+Shift+greater move window to output right; focus right
 bindsym $mod+Shift+less move window to output left; focus left
 
-# Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
-
-# Show the first scratchpad window
 bindsym $mod+minus scratchpad show
 
 # Start i3bar to display a workspace bar (plus the system information i3status
