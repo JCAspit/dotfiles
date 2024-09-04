@@ -13,7 +13,7 @@ Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 --Plug("nvim-treesitter/playground")
 
 Plug('theprimeagen/harpoon')
-Plug('mbbill/undotree') --
+Plug('mbbill/undotree')
 --Plug('tpope/vim-fugitive')
 Plug('tpope/vim-surround')
 Plug('barrett-ruth/live-server.nvim')
