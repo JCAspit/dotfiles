@@ -29,11 +29,7 @@ function cmkdir() { mkdir -p "$1" && cd "$1"; }
 
 alias mp3='yt-dlp -P ~/Downloads -f mp3'
 function mp4() {
-	if [[ $1 = "m" ]]; then
-		yt-dlp -P ~/Downloads -f "mp4*+ba/best" $2
-	else
-		yt-dlp -P ~/Downloads -f "bv*+ba/best" $1
-	fi
+	yt-dlp -P ~/Downloads -f "bv*+ba/best" --merge-output-format "mp4" $1
 }
 
 alias i3='nvim ~/.config/i3/config'
