@@ -4,7 +4,7 @@ vim.call('plug#begin')
 
 -- Colorschemes --
 Plug("rose-pine/neovim", { ['as'] = "rose=pine" })
-Plug("folke/tokyonight.nvim")
+--Plug("folke/tokyonight.nvim")
 
 -- Utilities --
 Plug ('nvim-lua/plenary.nvim')
@@ -19,6 +19,7 @@ Plug('tpope/vim-surround')
 Plug('barrett-ruth/live-server.nvim')
 Plug('laytan/cloak.nvim')
 Plug('windwp/nvim-ts-autotag')
+--Plug('tpope/vim-obsession')
 
 -- LSP --
 Plug('VonHeikemen/lsp-zero.nvim')
@@ -48,7 +49,7 @@ vim.call('plug#end')
 require('nvim-ts-autotag').setup()
 
 require('live-server').setup{
-	args = { '--port=8080', '--browser=firefox' }
+	args = { '--port=8080', '--browser=brave' }
 }
 
 require('cloak').setup({

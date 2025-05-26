@@ -21,14 +21,14 @@ font pango:Fira Code Regular 8
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
+#exec --no-startup-id dex --autostart --environment i3
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- /opt/scripts/lock-3.sh --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -36,8 +36,8 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # Audio controls
 # Pipewire
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && /opt/scripts/volume.sh && pactl set-sink-mute @DEFAULT_SINK@ 0
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && /opt/scripts/volume.sh && pactl set-sink-mute @DEFAULT_SINK@ 0
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && pactl set-sink-mute @DEFAULT_SINK@ 0 && /opt/scripts/volume.sh
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && pactl set-sink-mute @DEFAULT_SINK@ 0 && /opt/scripts/volume.sh
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && /opt/scripts/volume.sh
 
 # Pulse
@@ -68,6 +68,7 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+t exec "rofi -modi drun,run -show drun"
 
 #bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -180,7 +181,7 @@ workspace 9 output DP-4
 # Window assignments
 assign [class="kitty"] $ws1
 assign [class="(?i)firefox|brave-browser"] $ws2
-assign [class="MultiMC|Minecraft"] $ws3
+assign [class="MultiMC|Minecraft|Sober"] $ws3
 assign [class="Spotify"] $ws4
 assign [class="mpv|vlc"] $ws4
 assign [class="steam"] $ws5
@@ -246,30 +247,24 @@ bindsym $mod+m mode "move" focus floating
 
 # Other Customizations
 focus_follows_mouse no
-workspace_auto_back_and_forth yes
+workspace_auto_back_and_forth no
 
 default_border pixel 2
 default_floating_border pixel 2
 
 # Startup
-# exec_away because the refresh rate doesn't seem to load sometimes
-# i'm too lazy to type the command or an alias
-exec_always --no-startup-id xrandr --output DP-2 --primary --mode 1920x1080 --rate 144
-exec_always --no-startup-id xrandr --output DP-4 --mode 1920x1080 --rate 165.00 --right-of DP-2
-exec --no-startup-id picom -b --vsync --no-frame-pacing --backend=glx
 #exec --no-startup-id feh /media/Storage/Pictures/bg/mood/* --recursive --randomize --bg-center --bg-fill
-exec_always feh /media/Storage/Pictures/bg/city_painted.png --bg-center --bg-fill
+exec_always --no-startup-id feh /media/Storage/Pictures/bg/city_painted.png --bg-center --bg-fill
 exec --no-startup-id udiskie -a
-exec firefox
-exec spotify-launcher
-exec i3-sensible-terminal -e nvim ~/Documents/DOs-and-DONTs.txt
+#exec firefox # lol nice privacy update
+exec brave
 
 # Custom Keybinds
-bindsym $mod+Shift+x exec /opt/scripts/lock-2.sh
+bindsym $mod+Shift+x exec loginctl lock-session
 #bindsym $mod+Shift+b exec --no-startup-id feh /media/Storage/Pictures/bg/mood/* --recursive --randomize --bg-center --bg-fill
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
 bindsym $mod+Ctrl+space exec --no-startup-id /opt/scripts/swap_kbd.sh
-bindsym $mod+Shift+y exec i3-sensible-terminal -e python /opt/scripts/youtube_downloader_v4.py
+#bindsym $mod+Shift+y exec i3-sensible-terminal -e python /opt/scripts/youtube_downloader_v4.py
 
 bindsym $mod+Ctrl+greater move workspace to output left
 bindsym $mod+Ctrl+less move workspace to output right
