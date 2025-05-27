@@ -40,8 +40,3 @@ alias ....='cd ../../..'
 eval "$(zoxide init bash)"
 #eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(thefuck --alias)"
-
-export EDITOR=nvim
-export PYTHONPATH="/usr/lib/python3.12/site-packages"
-export PATH=$PATH:~/.spicetify
-export __GL_SHADER_DISK_CACHE_PATH="~/.cache/.nv"
