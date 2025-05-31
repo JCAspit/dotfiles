@@ -25,6 +25,6 @@ if [[ $(playerctl metadata -l 2>&1) != "No players found" && $(playerctl status)
 		curl $art -o "/tmp/spotify-art.webp"
 	fi
 
-	notify-send -t 2055 --icon "/tmp/spotify-art.webp" "$title" "$artist"
+	notify-send -t 2055 -r 2592 -u normal --icon "/tmp/spotify-art.webp" "$title" "$artist"
 
 fi
