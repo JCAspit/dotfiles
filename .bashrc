@@ -17,7 +17,7 @@ alias cat='bat'
 alias lob='lobster'
 alias ani='ani-cli'
 alias cfg='git --git-dir $HOME/.cfg --work-tree=$HOME'
-alias sudo='sudo '
+alias sudo='doas '
 alias restore='trash-restore --sort date'
 alias zath='zathura'
 alias open='xdg-open'
@@ -36,6 +36,8 @@ alias home='nvim /media/Storage/Documents/Papers-2024-2025/home-server.txt'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+
+complete -cf doas
 
 eval "$(zoxide init bash)"
 #eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
