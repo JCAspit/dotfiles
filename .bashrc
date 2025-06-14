@@ -26,6 +26,8 @@ function cmkdir() { mkdir -p "$1" && cd "$1"; }
 alias mp4='yt-dlp -P ~/Downloads -f "bv*+ba/best" --merge-output-format "mp4"'
 alias ts="/opt/scripts/tmux-sessionizer"
 alias sk="screenkey -p fixed -g 20%x5%+80%+95% &> /dev/null"
+function cwd_spawn() { nohup /proc/$(cat /proc/$(echo $$)/stat | cut -d ' ' -f 4)/exe > /dev/null 2>&1 & disown; }
+alias cwd="cwd_spawn"
 
 alias doc='nvim ~/Documents/txt.txt'
 alias todo='nvim ~/Documents/todo.txt'
