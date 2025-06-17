@@ -184,7 +184,7 @@ assign [class="(?i)firefox|brave-browser"] $ws2
 assign [class="MultiMC|Minecraft|Sober"] $ws3
 assign [class="Spotify"] $ws4
 assign [class="mpv|vlc"] $ws4
-assign [class="steam"] $ws5
+assign [class="steam|(?i)virt-manager"] $ws5
 assign [class="discord"] $ws6
 assign [class="obsidian"] $ws6
 assign [class="jetbrains-idea-ce"] $ws7
@@ -255,10 +255,12 @@ default_floating_border pixel 2
 
 # Startup
 #exec --no-startup-id feh /media/Storage/Pictures/bg/mood/* --recursive --randomize --bg-center --bg-fill
-exec_always --no-startup-id feh /media/Storage/Pictures/bg/city_painted.png --bg-center --bg-fill
+exec_always --no-startup-id feh /media/Storage/Pictures/bg/city_painted.png --bg-center --bg-fill --no-fehbg
 exec --no-startup-id udiskie -a
 #exec firefox # lol nice privacy update
 exec brave
+exec redshift -l 38.892178547309584:-77.03369177508743
+
 
 # Custom Keybinds
 bindsym $mod+Shift+x exec loginctl lock-session
@@ -275,7 +277,7 @@ bindsym $mod+Ctrl+less move workspace to output right
 bindsym $mod+Shift+greater move window to output right; focus right
 bindsym $mod+Shift+less move window to output left; focus left
 
-exec_always --no-startup-id /opt/scripts/bar.sh
+exec_always --no-startup-id /opt/scripts/spawn_bars.sh
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
