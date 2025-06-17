@@ -9,11 +9,11 @@ USER_DO="root"
 set -eu
 
 msg() {
-	echo "doasedit: $1"
+	printf "doasedit: %s\n" "$1"
 }
 
 error() {
-	echo -e "${RED}doasedit: $1${RESET}"
+	printf "${RED}doasedit: %s${RESET}\n" "$1"
 	exit 0
 }
 
@@ -50,6 +50,7 @@ while [ "$#" -gt 0 ]; do
 			;;
 		# To-do: Exit if multiple usages
 		-u)
+			# To-do: Does sudo verify if is valid user?
 			USER_DO=$2
 			shift
 			shift
@@ -60,7 +61,7 @@ while [ "$#" -gt 0 ]; do
 			;;
 		--version | -V)
 			# To-do: msg()?
-			echo "Doasedit version: $DOASEDIT_VERSION"
+			printf "Doasedit version: %s\n" "$DOASEDIT_VERSION"
 			exit 0
 			;;
 		-*)
@@ -75,12 +76,12 @@ done
 DOAS_CMD="doas -u $USER_DO"
 
 # Pre-script checking
-#if [ $(whoami) == "root" ]; then
-if [ $(id -u) -eq 0 ]; then
+#if [ "$(whoami)" = "root" ]; then
+if [ "$(id -u)" -eq 0 ]; then
 	error "Cannot run \`doasedit\` as root."
 fi
 
-if [ ! $(command -v doas) ]; then
+if [ ! "$(command -v doas)" ]; then
 	error "\`doas\` is not installed."
 fi
 
@@ -89,7 +90,7 @@ EDITOR=${EDITOR:-vim}
 EDITOR=${EDITOR:-vi}
 EDITOR=${EDITOR:-nano}
 
-if [ -z $EDITOR ]; then
+if [ -z "$EDITOR" ]; then
 	error "No editor specified. Please set your \$EDITOR environment variable and try again."
 fi
 
@@ -116,7 +117,7 @@ FILE_PATH=$(realpath "$1")
 FILE_FULL="${FILE_PATH##*/}"
 FILE_NAME="${FILE_FULL%.*}"
 FILE_EXTENSION="${FILE_FULL##*.}"
-if [ "$FILE_EXTENSION" == "$FILE_NAME" ]; then
+if [ "$FILE_EXTENSION" = "$FILE_NAME" ]; then
 	FILE_EXTENSION=""
 fi
 
@@ -143,36 +144,37 @@ TEMP_PATH=$TEMP_DIR$TEMP_NAME
 #echo "Temp directory: $TEMP_DIR"
 #echo "Temp path: $TEMP_PATH"
 
-if [ -e $FILE_PATH ]; then
-	cp -a $FILE_PATH $TEMP_PATH
+if [ -e "$FILE_PATH" ]; then
+	cp -a "$FILE_PATH" "$TEMP_PATH"
 else
-	touch $TEMP_PATH
+	touch "$TEMP_PATH"
 fi
 
+# To-do: Doas persistence
 # Ensure read/write permissions for copy
-$DOAS_CMD chown --silent $(id -u):$(id -g) $TEMP_PATH
-$DOAS_CMD chmod --silent 644 $TEMP_PATH
+$DOAS_CMD chown --silent "$(id -u)":"$(id -g)" "$TEMP_PATH"
+$DOAS_CMD chmod --silent 644 "$TEMP_PATH"
 
-$EDITOR $TEMP_PATH
+$EDITOR "$TEMP_PATH"
 
 # To-do: Mimic `sudoedit` functionality when file does not exist
 # Note the lack of brackets
 if cmp -s "$FILE_PATH" "$TEMP_PATH"; then
 	msg "$FILE_PATH unchanged."
-	rm -f $TEMP_PATH
+	rm -f "$TEMP_PATH"
 
 else
 	# If we're editing the doas configuration file, check for syntax errors
-	if [ "$FILE_PATH" == "/etc/doas.conf" ]; then
-		if ! doas -C $TEMP_PATH; then
+	if [ "$FILE_PATH" = "/etc/doas.conf" ]; then
+		if ! doas -C "$TEMP_PATH"; then
 			error "$FILE_PATH contains syntax errors. Writing may lock you out of your system. Kept changes at: $TEMP_PATH"
 		fi
 	fi
 
 	# To-do: 3 attempts. If still wrong, don't delete temp file
 	# Using dd to preserve permissions of original file
-	if $DOAS_CMD dd status=none if=$TEMP_PATH of=$FILE_PATH; then
-		rm -f $TEMP_PATH
+	if $DOAS_CMD dd status=none if="$TEMP_PATH" of="$FILE_PATH"; then
+		rm -f "$TEMP_PATH"
 	else
 		error "Unable to write to $1.\ndoasedit: Left contents of edit session in $TEMP_PATH"
 		# To-do: Put error message and silence `dd`	
