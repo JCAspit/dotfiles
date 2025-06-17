@@ -28,8 +28,8 @@ export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 #export HISTFILE="${XDG_STATE_HOME}"/bash/history
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
-export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
-export XCURSOR_PATH=/usr/share/icons:$XDG_DATA_HOME/icons
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+export XCURSOR_PATH=/usr/share/icons:"$XDG_DATA_HOME"/icons
 
 export EDITOR=nvim
 export HISTSIZE=5000
@@ -38,7 +38,7 @@ export PYTHONPATH="/usr/lib/python3.12/site-packages"
 #. "$HOME/.cargo/env"
 
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -le 3 ]; then
-	# `logout` is not needed with since `exec` replaces the current shell with the command
+	# `logout` is not needed since `exec` replaces the shell with the command
 	exec startx
 	#logout
 fi
