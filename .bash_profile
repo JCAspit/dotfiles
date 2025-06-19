@@ -30,6 +30,7 @@ export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 export XCURSOR_PATH=/usr/share/icons:"$XDG_DATA_HOME"/icons
+export W3M_DIR="$XDG_STATE_HOME/w3m"
 
 export EDITOR=nvim
 export HISTSIZE=5000
