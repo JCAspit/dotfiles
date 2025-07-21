@@ -1,5 +1,0 @@
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
-vim.keymap.set("n", "<leader>gc", function() vim.cmd [[Git commit]] end)
-vim.keymap.set("n", "<leader>ga", function() vim.cmd [[Git add %]] end)
-vim.keymap.set("n", "<leader>gr", function() vim.cmd [[Git rm %]] end)
-vim.keymap.set("n", "<leader>gg", function() vim.cmd [[Git status]] end)
