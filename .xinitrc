@@ -50,7 +50,11 @@ picom -b --vsync --no-frame-pacing --backend=glx
 #setterm -blank 0 -powerdown 0
 
 # turn off black screensaver
-xset s off
+#xset s off
+
+xset +dpms
+xset s on
+xset s 600
 
 systemctl --user import-environment DISPLAY
 
