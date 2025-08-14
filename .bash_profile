@@ -40,6 +40,6 @@ export PYTHONPATH="/usr/lib/python3.12/site-packages"
 
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -le 3 ]; then
 	# `logout` is not needed since `exec` replaces the shell with the command
-	exec startx
+	exec startx i3
 	#logout
 fi

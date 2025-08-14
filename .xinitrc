@@ -58,4 +58,20 @@ xset s 600
 
 systemctl --user import-environment DISPLAY
 
-exec i3
+# $1 is $TERM
+case "$2" in
+	"i3")
+		exec i3
+		;;
+	"dwm")
+		exec dwm
+		;;
+	"bspwm")
+		exec bspwm
+		;;
+	*)
+		#echo no valid wm/de provided
+		exec i3
+		;;
+esac
+
