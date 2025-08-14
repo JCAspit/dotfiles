@@ -111,7 +111,7 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+#bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -260,14 +260,17 @@ exec --no-startup-id udiskie -a
 #exec firefox # lol nice privacy update
 exec brave
 exec redshift -l 38.892178547309584:-77.03369177508743
+exec unclutter -b --timeout 3
 
 
 # Custom Keybinds
+bindsym $mod+e exec thunar
 bindsym $mod+Shift+x exec loginctl lock-session
 #bindsym $mod+Shift+b exec --no-startup-id feh /media/Storage/Pictures/bg/mood/* --recursive --randomize --bg-center --bg-fill
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
 bindsym $mod+Print exec --no-startup-id flameshot full --path ~/Pictures/
 bindsym $mod+Ctrl+Print exec --no-startup-id flameshot screen --path ~/Pictures/
+bindsym $mod+Shift+Print exec --no-startup-id /opt/scripts/ocr.sh
 bindsym $mod+Ctrl+space exec --no-startup-id /opt/scripts/swap_kbd.sh
 #bindsym $mod+Shift+y exec i3-sensible-terminal -e python /opt/scripts/youtube_downloader_v4.py
 
@@ -278,6 +281,12 @@ bindsym $mod+Shift+greater move window to output right; focus right
 bindsym $mod+Shift+less move window to output left; focus left
 
 exec_always --no-startup-id /opt/scripts/spawn_bars.sh
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
