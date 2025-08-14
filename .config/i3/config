@@ -179,13 +179,14 @@ workspace 8 output DP-2
 workspace 9 output DP-4
 
 # Window assignments
-assign [class="kitty"] $ws1
+assign [class="kitty|Alacritty|st-256color"] $ws1
+assign [class=$TERMINAL] $ws1
 assign [class="(?i)firefox|brave-browser"] $ws2
-assign [class="MultiMC|Minecraft|Sober"] $ws3
+assign [class="MultiMC|Minecraft|Sober|sober_services|Etterna"] $ws3
 assign [class="Spotify"] $ws4
 assign [class="mpv|vlc"] $ws4
 assign [class="steam|(?i)virt-manager"] $ws5
-assign [class="discord"] $ws6
+assign [class="discord|(?i)HexChat"] $ws6
 assign [class="obsidian"] $ws6
 assign [class="jetbrains-idea-ce"] $ws7
 assign [class="Gimp"] $ws8
