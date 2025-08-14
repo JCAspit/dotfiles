@@ -34,7 +34,8 @@ export W3M_DIR="$XDG_STATE_HOME/w3m"
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 
 export EDITOR=nvim
-export HISTSIZE=5000
+#export HISTSIZE=5000
+export HISTSIZE= HISTFILESIZE= # Uncaps file size
 export PYTHONPATH="/usr/lib/python3.12/site-packages"
 
 #. "$HOME/.cargo/env"
